@@ -2,11 +2,12 @@ import os
 import sys
 import schedule
 import util
+import config
 
 def setup():
   # Initialise config.ini if it doesn't exist
   if not os.path.exists("config.ini"):
-    util.init_default_config()
+    config.init_default()
 
   # Set up the posting timetable
   util.set_session_scheduler()
