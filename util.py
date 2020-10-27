@@ -65,6 +65,11 @@ def get_run_time():
     else:
       return run_time.strftime("%H:%M")
 
+def get_next_run_date():
+  next_run = schedule.jobs[0].next_run
+  now = datetime.now()
+  day = "today" if next_run.day == now.day else "tomorrow"
+  return f"{day} at {next_run.strftime('%H:%M')}"
 
 def set_last_run_date():
   set_config_val("last_run", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
