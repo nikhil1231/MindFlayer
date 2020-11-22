@@ -5,7 +5,7 @@ def get_val(key):
 
 def set_val(key, val):
   config = _get()
-  config["config"][key] = val
+  config["config"][key] = str(val)
   _write(config)
 
 def val_exists(key):
@@ -16,9 +16,9 @@ def init_default():
   config.add_section("config")
   config["config"]["fb_email"] = "email"
   config["config"]["fb_password"] = "password"
-  config["config"]["sleep_time"] = "9:00"
-  config["config"]["wake_time"] = "00:00"
-  config["config"]["suspended"] = 0
+  config["config"]["sleep_time"] = "00:00"
+  config["config"]["wake_time"] = "9:00"
+  config["config"]["suspended"] = "0"
 
   _write(config)
 

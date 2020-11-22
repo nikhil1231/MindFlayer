@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from threading import Thread
-import configparser
+import config
 import main
 import util
 
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/suspend", methods=["POST"])
 def set_suspension():
-  util.set_config_val("suspended", request.form["suspend"])
+  config.set_val("suspended", request.form["suspend"])
   res = f"{'S' if int(request.form['suspend']) else 'Uns'}uspended service"
   print(res)
   return res

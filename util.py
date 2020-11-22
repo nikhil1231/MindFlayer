@@ -66,6 +66,8 @@ def get_run_time():
       return run_time.strftime("%H:%M")
 
 def get_next_run_date():
+  if len(schedule.jobs) == 0:
+    return "No jobs scheduled."
   next_run = schedule.jobs[0].next_run
   now = datetime.now()
   day = "today" if next_run.day == now.day else "tomorrow"
