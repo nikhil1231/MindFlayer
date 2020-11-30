@@ -36,7 +36,7 @@ def get_auth_token(fb_auth_token, fb_user_id):
 
 
 def authverif():
-    res = get_auth_token(config.get_val('fb_access_token'), config.get_val('fb_user_id'))
+    res = get_auth_token(config.get_val('fb_token'), config.get_val('fb_id'))
     if "error" in res:
         return False
     return True

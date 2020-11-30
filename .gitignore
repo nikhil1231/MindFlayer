@@ -1,2 +1,4 @@
 config.ini
 /__pycache__
+data
+model2.h5

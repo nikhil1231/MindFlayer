@@ -6,6 +6,8 @@ import config
 import random
 import re
 from datetime import datetime, timedelta
+import fb_auth_token
+import tinder
 
 MEAN_WAIT_TIME = 30 * 60
 
@@ -33,8 +35,7 @@ def start_session(wait=True):
     return
   if wait: random_wait()
 
-  # Do swiping
-  print('swiping')
+  tinder.start_session()
 
   if not testing:
     set_last_run_date()
@@ -81,3 +82,27 @@ def get_last_run_date():
     return datetime.strptime(config.get_val('last_run'), "%Y-%m-%d %H:%M:%S")
   else:
     return datetime.min
+
+def get_tokens():
+  if not config.val_exists('fb_token'):
+    get_fb_token()
+  if not config.val_exists('tinder_token'):
+    get_tinder_token()
+
+def get_fb_token():
+  print("Getting Facebook token...")
+  fb_token = fb_auth_token.get_fb_access_token(config.get_val('fb_email'), config.get_val('fb_password'))
+  if not fb_token:
+    print('Error getting Facebook token')
+    return
+  config.set_val('fb_token', fb_token)
+
+  fb_id = fb_auth_token.get_fb_id(fb_token)
+  if not fb_id:
+    print('Error getting Facebook ID')
+    return
+  config.set_val('fb_id', fb_id)
+
+def get_tinder_token():
+  print("Getting Tinder token...")
+  tinder.get_token()
