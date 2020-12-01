@@ -86,7 +86,6 @@ def get_last_run_date():
 def get_tokens():
   if not config.val_exists('fb_token'):
     get_fb_token()
-  if not config.val_exists('tinder_token'):
     get_tinder_token()
 
 def get_fb_token():
@@ -105,4 +104,4 @@ def get_fb_token():
 
 def get_tinder_token():
   print("Getting Tinder token...")
-  tinder.get_token()
+  tinder.get_token(config.get_val('fb_token'), config.get_val('fb_id'))
