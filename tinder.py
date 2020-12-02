@@ -38,5 +38,7 @@ def start_session():
       else:
         _dislike(person_id)
         num_dislikes += 1
+      
+      print(f"Swiping: {num_likes} likes, {num_dislikes} dislikes", end='\r')
   
   print(f"Session complete: {num_likes} likes, {num_dislikes} dislikes")

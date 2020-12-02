@@ -50,7 +50,7 @@ def get_rating(person):
     try:
       processed_images = extract_faces(im)
     except:
-      pass
+      continue
     
     # Ignore images with multiple
     if len(processed_images) == 0:
