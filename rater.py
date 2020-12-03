@@ -4,6 +4,7 @@ import cv2
 import re
 import json
 import urllib.request
+from urllib.error import HTTPError
 import keras.models
 from keras.preprocessing import image
 import shutil
@@ -45,7 +46,11 @@ def get_rating(person):
   person_id = person['_id']
   for photo in person["photos"]:
     photo_url = photo['processedFiles'][0]['url']
-    urllib.request.urlretrieve(photo_url, f"{DATA_DIR}/{person_id}_{photo_num}.jpg")
+    try:
+      urllib.request.urlretrieve(photo_url, f"{DATA_DIR}/{person_id}_{photo_num}.jpg")
+    except HTTPError:
+      continue
+
     im = cv2.imread(f"{DATA_DIR}/{person_id}_{photo_num}.jpg")
     try:
       processed_images = extract_faces(im)
