@@ -1,6 +1,7 @@
 import tinder_api as api
 import rater
 import config
+from datetime import datetime
 
 num_requests = 1
 
@@ -12,6 +13,8 @@ def hot_or_not(rating):
 
 def _like(person_id):
   res = api.like(person_id)
+  if 'likes_remaining' not in res:
+    res = api.like(person_id)
   return res['likes_remaining']
 
 def _dislike(person_id):
@@ -38,7 +41,8 @@ def start_session():
       else:
         _dislike(person_id)
         num_dislikes += 1
-      
+
       print(f"Swiping: {num_likes} likes, {num_dislikes} dislikes", end='\r')
-  
-  print(f"Session complete: {num_likes} likes, {num_dislikes} dislikes")
+
+  now = datetime.now()
+  print(f"{now.strftime('%H:%M : %d/%m/%Y')} Session complete: {num_likes} likes, {num_dislikes} dislikes")
