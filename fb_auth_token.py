@@ -13,6 +13,8 @@ def get_fb_access_token(email, password):
     s = robobrowser.RoboBrowser(user_agent=MOBILE_USER_AGENT, parser="lxml")
     s.open(FB_AUTH)
     f = s.get_form()
+    s.submit_form(f)
+    f = s.get_form()
     f["pass"] = password
     f["email"] = email
     s.submit_form(f)
@@ -29,7 +31,7 @@ def get_fb_access_token(email, password):
     except Exception as ex:
         print("access token could not be retrieved. Check your username and password.")
         print("Official error: %s" % ex)
-        return False
+        return {"error": "access token could not be retrieved. Check your username and password."}
 
 
 def get_fb_id(access_token):
